@@ -76,7 +76,7 @@ LIMIT 5;
 SELECT post, SUM(salary) FROM staff GROUP BY post;
 
 -- 7.Найдите кол-во сотрудников со специальностью (post) «Рабочий» в возрасте от 24 до 49 лет включительно.
-SELECT COUNT(id) FROM staff WHERE post = "Рабочий" AND age > 23 AND age < 50;
+SELECT COUNT(id) FROM staff WHERE post = "Рабочий" AND age BETWEEN 24 AND 49;
 
 -- 8. Найдите количество специальностей.
 SELECT COUNT(DISTINCT post) AS "Количество специальностей" FROM staff;
