@@ -1,4 +1,5 @@
--- Ещё не доделал, в процессе.
+
+-- ЕЩЁ НЕ ДОДЕЛАЛ, В ПРОЦЕССЕ.
 
 DROP SCHEMA IF EXISTS hw3;
 CREATE SCHEMA IF NOT EXISTS hw3;
