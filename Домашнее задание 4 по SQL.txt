@@ -1,6 +1,4 @@
 
--- ЕЩЁ НЕ ДОДЕЛАЛ, В ПРОЦЕССЕ.
-
 DROP SCHEMA IF EXISTS hw3;
 CREATE SCHEMA IF NOT EXISTS hw3;
 
@@ -117,3 +115,28 @@ VALUES
 ('2020-02-12 07:10:54', 2),
 ('2020-02-12 07:20:19', 3),
 ('2020-02-12 07:35:38', 1);
+
+/* Используя JOIN-ы, выполните следующие операции:
+1.Вывести всех котиков по магазинам по id (условие соединения shops.id = cats.shops_id). */
+SELECT cats.name, shops.shopname FROM cats LEFT JOIN  shops ON shops.id = cats.shops_id 
+UNION SELECT cats.name, shops.shopname FROM shops RIGHT JOIN cats ON shops.id = cats.shops_id;
+
+-- 2.Вывести магазин, в котором продается кот “Мурзик” (попробуйте выполнить 2 способами).
+SELECT cats.name, shops.shopname FROM cats 
+LEFT JOIN  shops ON shops.id = cats.shops_id  WHERE cats.name = "Murzik"
+UNION SELECT cats.name, shops.shopname FROM shops 
+RIGHT JOIN cats ON shops.id = cats.shops_id WHERE cats.name = "Murzik";
+
+-- 3.Вывести магазины, в которых НЕ продаются коты “Мурзик” и “Zuza”.
+SELECT cats.name, shops.shopname FROM cats 
+RIGHT JOIN  shops ON shops.id = cats.shops_id  WHERE cats.name != "Murzik" AND cats.name != "Zuza"
+UNION SELECT cats.name, shops.shopname FROM shops 
+LEFT JOIN cats ON shops.id = cats.shops_id WHERE cats.name != "Murzik" AND cats.name != "Zuza";
+
+-- 4.Вывести название и цену для всех анализов, которые продавались 5 февраля 2020 и всю следующую неделю.
+SELECT analysis.an_name, analysis.an_cost, orders.ord_datetime, orders.ord_id FROM orders 
+LEFT JOIN  analysis ON analysis.an_id = orders.ord_an  
+WHERE orders.ord_datetime BETWEEN '2020-02-05 00:00:00' AND '2020-02-11 23:59:59'
+UNION SELECT analysis.an_name, analysis.an_cost, orders.ord_datetime, orders.ord_id FROM analysis 
+RIGHT JOIN  orders ON analysis.an_id = orders.ord_an  
+WHERE orders.ord_datetime BETWEEN '2020-02-05 00:00:00' AND '2020-02-11 23:59:59'
