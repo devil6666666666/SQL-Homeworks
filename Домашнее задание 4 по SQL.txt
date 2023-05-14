@@ -139,4 +139,4 @@ LEFT JOIN  analysis ON analysis.an_id = orders.ord_an
 WHERE orders.ord_datetime BETWEEN '2020-02-05 00:00:00' AND '2020-02-11 23:59:59'
 UNION SELECT analysis.an_name, analysis.an_cost, orders.ord_datetime, orders.ord_id FROM analysis 
 RIGHT JOIN  orders ON analysis.an_id = orders.ord_an  
-WHERE orders.ord_datetime BETWEEN '2020-02-05 00:00:00' AND '2020-02-11 23:59:59'
+WHERE orders.ord_datetime BETWEEN '2020-02-05 00:00:00' AND '2020-02-11 23:59:59';
