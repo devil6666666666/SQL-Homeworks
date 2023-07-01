@@ -1,0 +1,43 @@
+/* 1. Создайте функцию, которая принимает кол-во секунд 
+ и форматирует их в кол-во дней, часов, минут и секунд. */
+ 
+DROP FUNCTION IF EXISTS times;
+delimiter //
+CREATE FUNCTION times(num INT)
+RETURNS VARCHAR(200)
+DETERMINISTIC
+BEGIN
+DECLARE DD CHAR(9);
+DECLARE HH, MI, SS CHAR(2);
+DECLARE res CHAR(200);
+SET DD = cast(floor(num/60/60/24) AS CHAR(9));
+SET HH = cast(floor(MOD(num/60/60/24,1)*24) AS CHAR(2));
+SET MI = cast(floor(MOD(MOD(num/60/60/24,1)*24,1)*60) AS CHAR(2));
+SET SS = cast(round(MOD(MOD(MOD(num/60/60/24,1)*24,1)*60,1)*60) AS CHAR(2));
+SET res = concat(DD,' days ',HH,' hours ',MI,' minutes ',SS, ' seconds.');
+RETURN res;
+END //
+delimiter ;
+	
+SELECT times(5645660);
+ 
+ 
+ -- 2. Выведите только четные числа от 1 до 10 включительно.
+ 
+DROP PROCEDURE IF EXISTS even; 
+DROP TABLE IF EXISTS ev;
+delimiter //
+CREATE PROCEDURE even()
+BEGIN
+    DECLARE x INT DEFAULT 0;
+    CREATE TABLE ev (`Чётные числа` INT);
+    WHILE x < 10 DO
+    SET x = x + 2;
+    INSERT INTO ev VALUES(x);
+    END WHILE;
+
+SELECT * FROM ev;
+END //
+delimiter ;
+
+CALL even();
